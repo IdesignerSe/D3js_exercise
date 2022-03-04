@@ -8,18 +8,8 @@ const FAKE_DATA = [
 ];
 
 d3.select('div')
-//'div'by a tag 
-//'#any-class by a ID
-//'.any-class' by class name
+.classed('container', true)
 
-    .selectAll('p')
-    .data(FAKE_DATA)
-    .enter()
-    .append('p')
-// How I read this exemple
-// select div all paragraph within  
-// data that was rendered before 
-// enter render the information missing 
-.text(dta => dta.region);
-// text method call a function where add data to
-// each element in data row. https://www.youtube.com/watch?v=TOJ9yjvlapY
+.style('border', '1px solid red');
+//.style method or .style()
+//.class method or .classed()
