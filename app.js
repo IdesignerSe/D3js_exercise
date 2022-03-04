@@ -1,15 +1,37 @@
 
 const FAKE_DATA = [
-    {   id:'data1', value: 10, region: 'North'},
+    { id:'data1', value: 10, region: 'North'},
     { id: 'data2', value: 10, region: 'South' },
     { id: 'data3', value: 10, region: 'West' },
     { id: 'data4', value: 10, region: 'East' },
 
 ];
 
-d3.select('div')
+const xScale = d3
+.scaleBand()
+.domain(FAKE_DATA.map(dataPoint => dataPoint.region))
+.rangeRound([0, 250]).padding(0.1);
+
+const yScale = d3.scaleLinear().domain([0, 15]).range([200, 0]);
+
+
+const container = d3.select('svg')
+//You will need to transform d3 into a constant.
+
 .classed('container', true)
 
-.style('border', '1px solid red');
-//.style method or .style()
-//.class method or .classed()
+const bars = container
+    .selectAll('.bar')
+    .data(FAKE_DATA)
+    .enter()
+    .append('rect')
+    .classed('bar', true)
+    .attr('width', xScale.bandwidth())
+    .attr('height', (data) => 200 - yScale(data.value))
+    .attr('x', (data) => xScale(data.region))
+    .attr('y', (data) => yScale(data.value));
+
+setTimeout(() => {
+    bars.data(FAKE_DATA.slice(0, 2)).exit().remove();
+}, 2000);
+
